@@ -21,6 +21,7 @@ module.exports = function (grunt) {
       dockerWindowsVersion: '19-03-12',
       dockerLinuxComposeVersion: '1.27.4',
       dockerWindowsComposeVersion: '1.28.0',
+      dockerComposePluginVersion: '2.0.0-beta.6',
       komposeVersion: 'v1.22.0',
       kubectlVersion: 'v1.18.0',
     },
@@ -191,7 +192,7 @@ function shell_download_docker_binary(p, a) {
   var ip = ps[p] === undefined ? p : ps[p];
   var ia = as[a] === undefined ? a : as[a];
   var binaryVersion = p === 'windows' ? '<%= binaries.dockerWindowsVersion %>' : '<%= binaries.dockerLinuxVersion %>';
-  
+
   return [
     'if [ -f dist/docker ] || [ -f dist/docker.exe ]; then',
     'echo "docker binary exists";',
@@ -207,19 +208,30 @@ function shell_download_docker_compose_binary(p, a) {
   var ip = ps[p] || p;
   var ia = as[a] || a;
   var binaryVersion = p === 'windows' ? '<%= binaries.dockerWindowsComposeVersion %>' : '<%= binaries.dockerLinuxComposeVersion %>';
-  
-  return [
-    'if [ -f dist/docker-compose ] || [ -f dist/docker-compose.exe ]; then',
-    'echo "Docker Compose binary exists";',
-    'else',
-    'build/download_docker_compose_binary.sh ' + ip + ' ' + ia + ' ' + binaryVersion + ';',
-    'fi',
-  ].join(' ');
+
+  // plugin
+  if (p === 'linux' && a !== 'amd64') {
+    if (a === 'arm64') {
+      ia = 'arm64';
+    }
+
+    if (a === 'arm') {
+      ia = 'armv7';
+    }
+    binaryVersion = '<%= binaries.dockerComposePluginVersion %>';
+  }
+
+  return `
+    if [ -f dist/docker-compose ] || [ -f dist/docker-compose.exe ] || [ -f dist/docker-compose.plugin ] || [ -f dist/docker-compose.plugin.exe ]; then
+      echo "Docker Compose binary exists";
+    else
+      build/download_docker_compose_binary.sh ${ip} ${ia} ${binaryVersion};
+    fi`;
 }
 
 function shell_download_kompose_binary(p, a) {
   var binaryVersion = '<%= binaries.komposeVersion %>';
-  
+
   return [
     'if [ -f dist/kompose ] || [ -f dist/kompose.exe ]; then',
     'echo "kompose binary exists";',
@@ -231,7 +243,7 @@ function shell_download_kompose_binary(p, a) {
 
 function shell_download_kubectl_binary(p, a) {
   var binaryVersion = '<%= binaries.kubectlVersion %>';
-  
+
   return [
     'if [ -f dist/kubectl ] || [ -f dist/kubectl.exe ]; then',
     'echo "kubectl binary exists";',
