@@ -2,7 +2,11 @@ import { ContainerGroupViewModel, CreateContainerGroupRequest } from '../models/
 
 /* @ngInject */
 export function ContainerGroupService(ContainerGroup) {
-  return { containerGroups, containerGroup, create };
+  return { containerGroups, containerGroup, create, delete: deleteItem };
+
+  function deleteItem(id) {
+    return ContainerGroup.delete(id);
+  }
 
   async function containerGroups(subscriptionId) {
     try {

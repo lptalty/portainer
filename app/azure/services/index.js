@@ -8,8 +8,8 @@ import { SubscriptionService } from './subscription.service';
 
 export default angular
   .module('portainer.azure.services', [])
-  .service('AzureService', AzureService)
-  .service('ContainerGroupService', ContainerGroupService)
-  .service('ProviderService', ProviderService)
-  .service('ResourceGroupService', ResourceGroupService)
-  .service('SubscriptionService', SubscriptionService).name;
+  .factory('AzureService', AzureService)
+  .factory('ContainerGroupService', ContainerGroupService)
+  .factory('ProviderService', ProviderService)
+  .factory('ResourceGroupService', ResourceGroupService)
+  .factory('SubscriptionService', SubscriptionService).name;

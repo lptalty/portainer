@@ -1,9 +1,9 @@
 /* @ngInject */
-export function AzureService(Azure, SubscriptionService, ResourceGroupService, ContainerGroupService, ProviderService) {
+export function AzureService(SubscriptionService, ResourceGroupService, ContainerGroupService, ProviderService) {
   return { deleteContainerGroup, createContainerGroup, subscriptions, containerInstanceProvider, resourceGroups, containerGroups, aggregate };
 
   function deleteContainerGroup(id) {
-    return Azure.delete(id, '2018-04-01');
+    return ContainerGroupService.delete(id);
   }
 
   function createContainerGroup(model, subscriptionId, resourceGroupName) {

@@ -39,7 +39,7 @@ export default function config($stateRegistryProvider) {
     url: '/:id',
     views: {
       'content@': {
-        component: 'containerInstanceDetails',
+        component: 'containerInstanceDetailsView',
       },
     },
   };

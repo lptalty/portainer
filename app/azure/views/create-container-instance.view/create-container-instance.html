@@ -7,7 +7,7 @@
   <div class="col-sm-12">
     <rd-widget>
       <rd-widget-body>
-        <form class="form-horizontal" autocomplete="off" name="aciForm">
+        <form class="form-horizontal" autocomplete="off" name="$ctrl.aciForm">
           <div class="col-sm-12 form-section-title">
             Azure settings
           </div>
@@ -20,7 +20,7 @@
                 name="azure_subscription"
                 ng-model="$ctrl.state.selectedSubscription"
                 ng-options="subscription.Name for subscription in $ctrl.subscriptions"
-                ng-change="changeSubscription()"
+                ng-change="$ctrl.changeSubscription()"
               ></select>
             </div>
           </div>
@@ -56,9 +56,9 @@
               <input type="text" class="form-control" ng-model="$ctrl.model.Name" name="container_name" placeholder="e.g. myContainer" required />
             </div>
           </div>
-          <div class="form-group" ng-show="aciForm.container_name.$invalid">
+          <div class="form-group" ng-show="$ctrl.aciForm.container_name.$invalid">
             <div class="col-sm-12 small text-warning">
-              <div ng-messages="aciForm.container_name.$error">
+              <div ng-messages="$ctrl.aciForm.container_name.$error">
                 <p ng-message="required"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is required. </p>
               </div>
             </div>
@@ -71,9 +71,9 @@
               <input type="text" class="form-control" ng-model="$ctrl.model.Image" name="image_name" placeholder="e.g. nginx:alpine" required />
             </div>
           </div>
-          <div class="form-group" ng-show="aciForm.image_name.$invalid">
+          <div class="form-group" ng-show="$ctrl.aciForm.image_name.$invalid">
             <div class="col-sm-12 small text-warning">
-              <div ng-messages="aciForm.image_name.$error">
+              <div ng-messages="$ctrl.aciForm.image_name.$error">
                 <p ng-message="required"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Image is required. </p>
               </div>
             </div>
@@ -169,14 +169,14 @@
               <button
                 type="button"
                 class="btn btn-primary btn-sm"
-                ng-disabled="$ctrl.state.actionInProgress"
+                ng-disabled="$ctrl.state.actionInProgress || $ctrl.aciForm.$invalid"
                 ng-click="$ctrl.create()"
                 button-spinner="$ctrl.state.actionInProgress"
               >
                 <span ng-hide="$ctrl.state.actionInProgress">Deploy the container</span>
                 <span ng-show="$ctrl.state.actionInProgress">Deployment in progress...</span>
               </button>
-              <span class="text-danger" ng-if="state.formValidationError" style="margin-left: 5px;">{{ state.formValidationError }}</span>
+              <span class="text-danger" ng-if="$ctrl.state.formValidationError" style="margin-left: 5px;">{{ $ctrl.state.formValidationError }}</span>
             </div>
           </div>
           <!-- !actions -->
