@@ -5,13 +5,12 @@ import { KubernetesDeployManifestTypes, KubernetesDeployBuildMethods, Kubernetes
 
 class KubernetesDeployController {
   /* @ngInject */
-  constructor($async, $state, $window, ModalService, Notifications, EndpointProvider, KubernetesResourcePoolService, StackService) {
+  constructor($async, $state, $window, ModalService, Notifications, KubernetesResourcePoolService, StackService) {
     this.$async = $async;
     this.$state = $state;
     this.$window = $window;
     this.ModalService = ModalService;
     this.Notifications = Notifications;
-    this.EndpointProvider = EndpointProvider;
     this.KubernetesResourcePoolService = KubernetesResourcePoolService;
     this.StackService = StackService;
 
@@ -73,7 +72,7 @@ class KubernetesDeployController {
         payload.StackFileContent = this.formValues.EditorContent;
       }
 
-      await this.StackService.kubernetesDeploy(this.endpointId, method, payload);
+      await this.StackService.kubernetesDeploy(this.endpoint.Id, method, payload);
 
       this.Notifications.success('Manifest successfully deployed');
       this.state.isEditorDirty = false;
@@ -132,7 +131,6 @@ class KubernetesDeployController {
     this.formValues = {};
     this.ManifestDeployTypes = KubernetesDeployManifestTypes;
     this.BuildMethods = KubernetesDeployBuildMethods;
-    this.endpointId = this.EndpointProvider.endpointID();
 
     await this.getNamespaces();
 

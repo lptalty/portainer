@@ -17,11 +17,11 @@ angular
     FormValidator,
     ResourceControlService,
     FormHelper,
-    EndpointProvider,
     StackHelper,
     ContainerHelper,
     CustomTemplateService,
-    ContainerService
+    ContainerService,
+    endpoint
   ) {
     $scope.formValues = {
       Name: '',
@@ -228,12 +228,7 @@ angular
         Notifications.error('Failure', err, 'Unable to retrieve Custom Templates');
       }
 
-      try {
-        const endpoint = EndpointProvider.currentEndpoint();
-        $scope.composeSyntaxMaxVersion = endpoint.ComposeSyntaxMaxVersion;
-      } catch (err) {
-        Notifications.error('Failure', err, 'Unable to retrieve the ComposeSyntaxMaxVersion');
-      }
+      $scope.composeSyntaxMaxVersion = endpoint.ComposeSyntaxMaxVersion;
 
       try {
         const containers = await ContainerService.containers(true);

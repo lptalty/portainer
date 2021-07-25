@@ -141,11 +141,10 @@ class KubernetesClusterController {
       applicationsLoading: true,
       viewReady: false,
       hasUnhealthyComponentStatus: false,
-      useServerMetrics: false,
+      useServerMetrics: this.endpoint.Kubernetes.Configuration.UseServerMetrics,
     };
 
     this.isAdmin = this.Authentication.isAdmin();
-    this.state.useServerMetrics = this.endpoint.Kubernetes.Configuration.UseServerMetrics;
 
     await this.getNodes();
     if (this.isAdmin) {
