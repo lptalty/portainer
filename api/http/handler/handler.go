@@ -47,8 +47,8 @@ type Handler struct {
 	EndpointGroupHandler   *endpointgroups.Handler
 	EndpointHandler        *endpoints.Handler
 	EndpointProxyHandler   *endpointproxy.Handler
-	FileHandler            *file.Handler
 	KubernetesHandler      *kubernetes.Handler
+	FileHandler            *file.Handler
 	MOTDHandler            *motd.Handler
 	RegistryHandler        *registries.Handler
 	ResourceControlHandler *resourcecontrols.Handler
