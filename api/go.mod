@@ -36,7 +36,7 @@ require (
 	github.com/opencontainers/image-spec v0.0.0-20170515205857-f03dbe35d449 // indirect
 	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6
 	github.com/pkg/errors v0.9.1
-	github.com/portainer/docker-compose-wrapper v0.0.0-20210808125237-59cf9d49443c
+	github.com/portainer/docker-compose-wrapper v0.0.0-20210810092435-e5e64edf3a60
 	github.com/portainer/libcrypto v0.0.0-20210422035235-c652195c5c3a
 	github.com/portainer/libhttp v0.0.0-20190806161843-ba068f58be33
 	github.com/sirupsen/logrus v1.8.1
