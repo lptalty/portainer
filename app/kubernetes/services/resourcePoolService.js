@@ -90,8 +90,7 @@ export function KubernetesResourcePoolService(
       try {
         const [oldNamespace, oldQuota, oldIngresses, oldRegistries] = KubernetesResourcePoolConverter.formValuesToResourcePool(oldFormValues);
         const [newNamespace, newQuota, newIngresses, newRegistries] = KubernetesResourcePoolConverter.formValuesToResourcePool(newFormValues);
-
-        await KubernetesNamespaceService.patch(oldNamespace, newNamespace);
+        void oldNamespace, newNamespace;
 
         if (oldQuota && newQuota) {
           await KubernetesResourceQuotaService.patch(oldQuota, newQuota);
